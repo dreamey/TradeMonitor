@@ -1,0 +1,2 @@
+# TradeMonitor
+CLI Trade Monitor
