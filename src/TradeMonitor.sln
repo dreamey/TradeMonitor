@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.329
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TradeMonitor", "TradeMonitor\TradeMonitor.csproj", "{694EB910-02C8-439A-A0B8-F6B6A0993975}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{694EB910-02C8-439A-A0B8-F6B6A0993975}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{694EB910-02C8-439A-A0B8-F6B6A0993975}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{694EB910-02C8-439A-A0B8-F6B6A0993975}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{694EB910-02C8-439A-A0B8-F6B6A0993975}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3C939332-E864-4AAC-8FF6-95E89029B8B6}
+	EndGlobalSection
+EndGlobal
