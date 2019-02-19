@@ -62,47 +62,19 @@ namespace TradeMonitor
         public static bool Init()
         {
             bool _initComplete = false;
-
+            bool _initTaskComplete = false;
             new Thread(() =>
             {
                 Thread.CurrentThread.IsBackground = true;
-                Console.CursorVisible = false;
-                int _dotCount = 3;
-                while (!_initComplete)
-                {
-                    if (_dotCount == 3)
-                    {
-                        Console.SetCursorPosition(0, Console.CursorTop - 1);
-                        Utils.ClearCurrentConsoleLine();
-                        Cinstance.Out("Init.", Color.DarkSlateBlue, _disableSound: true);
-                        _dotCount = 1;
-                        Utils.Pause(100);
-                    }
-                    else if (_dotCount == 2)
-                    {
-                        Console.SetCursorPosition(0, Console.CursorTop - 1);
-                        Utils.ClearCurrentConsoleLine();
-                        Cinstance.Out("Init...", Color.DarkSlateBlue, _disableSound: true);
-                        _dotCount = 3;
-                        Utils.Pause(100);
-                    }
-                    else if (_dotCount == 1)
-                    {
-                        Console.SetCursorPosition(0, Console.CursorTop - 1);
-                        Utils.ClearCurrentConsoleLine();
-                        Cinstance.Out("Init..", Color.DarkSlateBlue, _disableSound: true);
-                        _dotCount = 2;
-                        Utils.Pause(100);
-                    }
-                }
-                Console.CursorVisible = true;
+                Cinstance.InitDisplay(ref _initComplete, ref _initTaskComplete, _manuallyClearLastLine:0);
             }).Start();
             return Utils.Init(ref _initComplete);
         }
 
         public static void PrintMenu()
         {
-            Cinstance.Out(@"""d"" for database functions (e.x search)", Color.CadetBlue); Utils.Pause(100);
+            Utils.Pause();
+            Cinstance.Out(@"""d"" for database functions (e.x search)", Color.CadetBlue, _prefixWithNewLines:1); Utils.Pause(100);
             Cinstance.Out(@"""n"" to create new entry", Color.CadetBlue); Utils.Pause(100);
             Cinstance.Out(@"""d"" to delete entry", Color.CadetBlue); Utils.Pause(100);
             Cinstance.Out(@"""s"" to edit settings", Color.CadetBlue); Utils.Pause(100);

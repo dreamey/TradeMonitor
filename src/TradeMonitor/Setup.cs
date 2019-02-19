@@ -7,6 +7,7 @@ using System.Drawing;
 using Console = Colorful.Console;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Threading;
 
 namespace TradeMonitor
 {
@@ -117,9 +118,21 @@ namespace TradeMonitor
             Cinstance.Out($"Account equity set to ", Color.HotPink, _nextBufferOnSameLine: true);
             Cinstance.Out(_account.AccountEquity.ToString(), Color.DeepPink, 2);
 
-            Cinstance.Out($"Your account is being written to a new file -  {_account.AccountNumber}.fx", Color.ForestGreen);
+            Cinstance.Out($"Your account is being written to a new file -  {_account.AccountNumber}.fx", Color.ForestGreen, 1);
+            Utils.Pause();
+
+            bool _scribeComplete = false;
+            bool _initDisplayComplete = false;
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                Cinstance.InitDisplay(ref _scribeComplete, ref _initDisplayComplete, loadText:"Writing");
+            }).Start();
 
             var scribe = new FX_Scribe(_account);
+            scribe.WriteToFile(ref _scribeComplete);
+
+            Cinstance.Out("Account Successfully Written", Color.CadetBlue, _prefixWithNewLines:1);
 
             return;
         }

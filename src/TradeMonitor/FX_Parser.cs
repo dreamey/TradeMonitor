@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
 using Console = Colorful.Console;
+using System.Threading;
 
 namespace TradeMonitor
 {
@@ -68,24 +69,48 @@ namespace TradeMonitor
         public void Dispose()
         {
             Console.Title = InitialTitle;
-            InstanceCount = InstanceCount - 1;
+            InstanceCount -= 1;
         }
     }
 
     class FX_Scribe
     {
+        private Setup.AccountSetup Account;
+
         public FX_Scribe(Setup.AccountSetup account)
         {
             if(account.AccountEquity != 0 && account.AccountName != null && account.AccountNumber != 0 && account.Currency != null)
             {
-                using (BinaryWriter b = new BinaryWriter(File.Open($"{account.AccountNumber}.fx", FileMode.Create)))
-                {
-                    b.Write(account.AccountNumber);
-                    b.Write(account.AccountName);
-                    b.Write(account.AccountEquity);
-                    b.Write(account.Currency);
-                }
+                this.Account = account;
             }
+        }
+
+        public void WriteToFile(ref bool _writeComplete)
+        {
+            using (BinaryWriter b = new BinaryWriter(File.Open($"{Account.AccountNumber}.fx", FileMode.Create)))
+            {
+                Thread.Sleep(2000);
+                b.Write(Account.AccountNumber);
+                b.Write(Account.AccountName);
+                b.Write(Account.AccountEquity);
+                b.Write(Account.Currency);
+            }
+            _writeComplete = true;
+        }
+
+        public void WriteToFileOnNewThread()
+        {
+            new Thread(() =>
+            {
+                Thread.CurrentThread.IsBackground = true;
+                using (BinaryWriter b = new BinaryWriter(File.Open($"{Account.AccountNumber}.fx", FileMode.Create)))
+                {
+                    b.Write(Account.AccountNumber);
+                    b.Write(Account.AccountName);
+                    b.Write(Account.AccountEquity);
+                    b.Write(Account.Currency);
+                }
+            }).Start();
         }
     }
 }
