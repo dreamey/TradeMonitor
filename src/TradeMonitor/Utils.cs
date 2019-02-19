@@ -32,6 +32,7 @@ namespace TradeMonitor
             string[] savedAccounts = Directory.GetFiles(AppDomain.CurrentDomain.BaseDirectory, "*.fx",SearchOption.TopDirectoryOnly);
             if (savedAccounts.Length >= 1)
             {
+                Cinstance.Out($"Found {savedAccounts.Length} accounts", Color.BlueViolet, 1, _prefixWithNewLines:1);
                 _initComplete = true;
                 //User file exists
                 foreach (var account in savedAccounts)

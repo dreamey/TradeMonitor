@@ -131,10 +131,8 @@ namespace TradeMonitor
 
             var scribe = new FX_Scribe(_account);
             scribe.WriteToFile(ref _scribeComplete);
-
+            Utils.Pause();
             Cinstance.Out("Account Successfully Written", Color.CadetBlue, _prefixWithNewLines:1);
-
-            return;
         }
     }
 }
